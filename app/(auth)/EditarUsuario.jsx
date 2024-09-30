@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Switch, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Switch, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const EditarUsuario = () => {
@@ -7,54 +7,56 @@ const EditarUsuario = () => {
   const toggleSwitch = () => setIsEnabled(!isEnabled);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Editar Usuário</Text>
-      </View>
-
-      <View style={styles.formContainer}>
-        <Text style={styles.formTitle}>Alterar Informações</Text>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>E-mail</Text>
-          <TextInput style={styles.input} placeholder="Digite seu e-mail" />
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Editar Usuário</Text>
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Nome</Text>
-          <TextInput style={styles.input} placeholder="Digite seu nome" />
+        <View style={styles.formContainer}>
+          <Text style={styles.formTitle}>Alterar Informações</Text>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>E-mail</Text>
+            <TextInput style={styles.input} placeholder="Digite seu e-mail" />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Nome</Text>
+            <TextInput style={styles.input} placeholder="Digite seu nome" />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Senha</Text>
+            <TextInput style={styles.input} placeholder="Digite sua senha" secureTextEntry={true} />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Telefone</Text>
+            <TextInput style={styles.input} placeholder="Digite seu telefone" />
+          </View>
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Senha</Text>
-          <TextInput style={styles.input} placeholder="Digite sua senha" secureTextEntry={true} />
+        <View style={styles.switchContainer}>
+          <Text style={styles.switchLabel}>Continuar a receber mensagens</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#87ceeb" }}
+            thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Telefone</Text>
-          <TextInput style={styles.input} placeholder="Digite seu telefone" />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.editButton}>
+            <Text style={styles.buttonText}>Editar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.deleteButton}>
+            <Text style={styles.buttonText}>Deletar</Text>
+          </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchLabel}>Continuar a receber mensagens</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#87ceeb" }}
-          thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.editButton}>
-          <Text style={styles.buttonText}>Editar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.deleteButton}>
-          <Text style={styles.buttonText}>Deletar</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 

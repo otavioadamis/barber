@@ -10,6 +10,9 @@ const Home = () => {
         <Link href="/login" className='font-bold'>login</Link>
         <Link href="/cadastro" className='font-bold'>cadastro</Link>
         <Link href="/EditarUsuario" className='font-bold'>EditarUsuario</Link>
+        <Link href="/criar-reserva" className='font-bold'>Cria reserva</Link>
+        <Link href="/home" className='font-bold'>Homepage</Link>
+        <Link href="/calendario" className='font-bold'>calendario</Link>
       </View>
     </SafeAreaView>
   )
