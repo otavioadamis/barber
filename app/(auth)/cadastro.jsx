@@ -7,7 +7,7 @@ export default function Cadastro({ navigation }) {
     <View style={styles.container}>
       <View style={styles.signupBox}>
         <Image 
-          source={{ uri: '' }} 
+          source={{ uri: '../../assets/BarberConnect.png' }} 
           style={styles.logo} 
         />
         
