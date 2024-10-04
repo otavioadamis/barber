@@ -13,7 +13,14 @@ const Clock = ({ color = "black", size = 24 }) => {
     );
 }
 
+const Pencil = ({ color = color, size = 24 }) => {
+    return (
+        <Entypo name="edit" size={size} color={color} />
+    );
+}
+
 export default {
     Home,
-    Clock
+    Clock,
+    Pencil
 }

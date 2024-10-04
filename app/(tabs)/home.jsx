@@ -20,8 +20,8 @@ const Home = () => {
                 <Text className="font-medium text-[16px]">Histórico de agendamentos</Text>
                 <View className='flex-row'>
                     <View className='flex-col items-start space-y-2 w-full relative'>
-                        <Text>Dia</Text>
-                        <View className='flex-row bg-slate-200 w-full rounded-lg p-2'>
+                        <Text className='font-medium'>19/9</Text>
+                        <View className='flex-row bg-slate-200 w-full rounded-lg p-2 shadow-lg shadow-black'>
                             <View className=''>
                                 <View className='flex-row space-x-2'>
                                     <Text>Agendamento</Text>
