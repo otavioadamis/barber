@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar } from 'react-native-calendars';
+import { router } from 'expo-router';
 
 const Calendario = () => {
   const [selectedDay, setSelectedDay] = useState(null);
@@ -16,6 +17,16 @@ const Calendario = () => {
     setSelectedDay(day.dateString); 
     setHorarios(availableHorarios[day.dateString] || []); 
   };
+
+  const handleHorarioPress = (selectedHorario) => {
+    router.push({
+    pathname: '/criar-reserva',
+    params: {
+      dia: selectedDay,
+      horario: selectedHorario
+    },
+  });
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,7 +51,11 @@ const Calendario = () => {
         {horarios.length > 0 ? (
           <ScrollView>
             {horarios.map((horario, index) => (
-              <TouchableOpacity key={index} style={styles.horarioButton}>
+              <TouchableOpacity 
+                key={index} 
+                style={styles.horarioButton}
+                activeOpacity={0.5} 
+                onPress={() => handleHorarioPress(horario)}>
                 <Text style={styles.horarioText}>{horario}</Text>
               </TouchableOpacity>
             ))}
