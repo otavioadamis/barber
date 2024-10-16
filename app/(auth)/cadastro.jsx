@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
+import { UserService } from '../../services/api/UserService';
 
 export default function Cadastro({ navigation }) {
+  const userService = new UserService();
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [contato, setContato] = useState('');
+  
+  const handleCadastro = async () => {
+    const signupRequest = {
+      "nome": nome,
+      "email": email,
+      "senha": senha,
+      "contato": contato
+    }
+    const signupResponse = await userService.signup(signupRequest);
+    console.log(signupResponse);
+    router.navigate('home');
+  }
+  
   return (
     <View style={styles.container}>
       <View style={styles.signupBox}>
@@ -13,14 +33,14 @@ export default function Cadastro({ navigation }) {
         
         <Text style={styles.title}>Cadastro</Text>
 
-        <TextInput style={styles.input} placeholder="Nome" />
-        <TextInput style={styles.input} placeholder="Email" />
-        <TextInput style={styles.input} placeholder="Senha" secureTextEntry />
-        <TextInput style={styles.input} placeholder="Confirme sua senha" secureTextEntry />
-        <TextInput style={styles.input} placeholder="Telefone" />
+        <TextInput style={styles.input} placeholder="Nome" onChangeText={setNome} value={nome}/>
+        <TextInput style={styles.input} placeholder="Email" onChangeText={setEmail} value={email}/>
+        <TextInput style={styles.input} placeholder="Senha" secureTextEntry onChangeText={setSenha} value={senha}/>
+        <TextInput style={styles.input} placeholder="Confirme sua senha" secureTextEntry/>
+        <TextInput style={styles.input} placeholder="Contato" onChangeText={setContato} value={contato} keyboardType='numeric'/>
 
-        <TouchableOpacity style={styles.signupButton}>
-          <Text style={styles.signupButtonText}>Cadastra-se</Text>
+        <TouchableOpacity style={styles.signupButton} onPress={() => handleCadastro()}>
+          <Text style={styles.signupButtonText}>Cadastrar-se</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.navigate('login')}>
