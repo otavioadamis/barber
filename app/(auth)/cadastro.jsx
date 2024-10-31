@@ -43,13 +43,11 @@ export default function Cadastro({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.signupBox}>
+      <Text style={styles.title}>Cadastro</Text>
         <Image
           source={{ uri: BarberConnectPng }}
           style={styles.logo}
         />
-
-        <Text style={styles.title}>Cadastro</Text>
-
         <TextInput style={styles.input} placeholder="Nome" onChangeText={setNome} value={nome} />
         <TextInput style={styles.input} placeholder="Email" onChangeText={setEmail} value={email} />
         <TextInput style={styles.input} placeholder="Senha" secureTextEntry onChangeText={setSenha} value={senha} />
