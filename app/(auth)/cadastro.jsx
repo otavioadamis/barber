@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { router } from 'expo-router';
 import { UserService } from '../../services/api/UserService';
 
@@ -18,9 +18,19 @@ export default function Cadastro({ navigation }) {
       "senha": senha,
       "contato": contato
     }
-    const signupResponse = await userService.signup(signupRequest);
-    console.log(signupResponse);
-    router.navigate('home');
+    try {
+      const signupResponse = await userService.signup(signupRequest);
+      if(signupResponse) {
+        const usuario = signupResponse.usuario;
+        Alert.alert('Cadastro feito com sucesso.' `Bem vindo ao Barber Connect, ${usuario.nome}`)
+        
+        router.push('/home');
+      } else {
+        Alert.alert('Erro no cadastro', 'Verifique os dados e tente novamente.')
+      }
+    } catch (error) {
+      Alert.alert('Erro ao fazer cadastro', 'Não foi possível conectar ao servidor.')
+    }
   }
   
   return (
