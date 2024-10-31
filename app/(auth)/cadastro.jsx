@@ -36,13 +36,13 @@ export default function Cadastro({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.signupBox}>
+        <Text style={styles.title}>Cadastro</Text>
         <Image 
           source={{ uri: '../../assets/BarberConnect.png' }} 
           style={styles.logo} 
         />
         
-        <Text style={styles.title}>Cadastro</Text>
-
+       
         <TextInput style={styles.input} placeholder="Nome" onChangeText={setNome} value={nome}/>
         <TextInput style={styles.input} placeholder="Email" onChangeText={setEmail} value={email}/>
         <TextInput style={styles.input} placeholder="Senha" secureTextEntry onChangeText={setSenha} value={senha}/>
@@ -64,14 +64,13 @@ export default function Cadastro({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#171717',
     justifyContent: 'center',
     alignItems: 'center',
   },
   signupBox: {
-    backgroundColor: '#f0f0f0',
-    width: '90%',
-    borderRadius: 30,
+    backgroundColor: '#fff',
+    width: '85%',
+    borderRadius: 20,
     padding: 20,
     alignItems: 'center',
     shadowColor: '#000',
@@ -87,10 +86,10 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 150,
+    height: 150,
     marginBottom: 20,
+    resizeMode: 'contain',
   },
   input: {
     width: '100%',
@@ -103,9 +102,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   signupButton: {
-    backgroundColor: '#c81c1c',
-    width: '80%',
-    padding: 12,
+    backgroundColor: '#0099e6',
+    width: '100%',
+    padding: 10,
     borderRadius: 25,
     alignItems: 'center',
     shadowColor: '#000',
