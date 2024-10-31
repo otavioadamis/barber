@@ -70,14 +70,13 @@ export default function Cadastro({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#171717',
     justifyContent: 'center',
     alignItems: 'center',
   },
   signupBox: {
-    backgroundColor: '#f0f0f0',
-    width: '90%',
-    borderRadius: 30,
+    backgroundColor: '#fff',
+    width: '85%',
+    borderRadius: 20,
     padding: 20,
     alignItems: 'center',
     shadowColor: '#000',
@@ -95,9 +94,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
-    borderRadius: 50,
     marginBottom: 20,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   input: {
     width: '100%',
@@ -110,9 +108,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   signupButton: {
-    backgroundColor: '#c81c1c',
-    width: '80%',
-    padding: 12,
+    backgroundColor: '#0099e6',
+    width: '100%',
+    padding: 10,
     borderRadius: 25,
     alignItems: 'center',
     shadowColor: '#000',

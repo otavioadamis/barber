@@ -88,10 +88,9 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   logo: {
-    width: 250,
-    height: 250,
-    resizeMode: 'contain',
-    marginBottom: 20,
+      width: 180,
+      height: 180,
+      marginBottom: 20,
   },
   label: {
     alignSelf: 'flex-start',
