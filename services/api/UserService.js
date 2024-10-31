@@ -8,10 +8,14 @@ export class UserService {
     async signup(signupRequest) {
         try {
             const response = await this.http.post('usuario/cadastro', signupRequest);
-            return response.data
+            return response.data;
         } catch (error) {
-            console.log("Erro ao cadastrar usuario", error)
-            throw error;
+            console.log("Erro ao cadastrar usuario", error);
+            if (error.response && error.response.status !== 200) {
+                throw new Error('Erro de validação: Verifique os dados enviados');
+            } else {
+                throw new Error('Erro no servidor: Tente novamente mais tarde');
+            }
         }
     }
 
@@ -21,7 +25,11 @@ export class UserService {
             return response.data;
         } catch (error) {
             console.error("Erro ao fazer login", error);
-            throw error;
+            if (error.response && error.response.status !== 200) {
+                throw new Error('Email ou senha incorretos');
+            } else {
+                throw new Error('Erro no servidor: Não foi possível se conectar');
+            }
         }
     }
 }

@@ -8,36 +8,29 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [erro, setErro] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleLogin = async () => {
-    const loginRequest = {
-      "email": email,
-      "senha": senha
-    }
-    if (email.trim() === '' || senha.trim() === '') {
-      setError('Campo(s) obrigatório(s)');
+    const loginRequest = { email: email.trim(), senha: senha.trim() };
+    if (!loginRequest.email || !loginRequest.senha) {
+        return setError('Campo(s) obrigatório(s) faltando.');
     } else {
-      setError(null);
+        setError(null);
     }
-    try
-    {
-      const loginResponse = await userService.login(loginRequest);;
-        if(loginResponse) {
-          const usuario = loginResponse.usuario
-          Alert.alert('Login feito com sucesso', `Bem vindo de volta, ${usuario.nome}`)
+    try {
+        const loginResponse = await userService.login(loginRequest);      
+        if (loginResponse) {
+            const { usuario } = loginResponse;
+            Alert.alert('Login feito com sucesso', `Bem vindo de volta, ${usuario.nome}`);
             
-          if(usuario.tipo === 'ROLE_CLIENTE'){
-              router.push('/home');
+            if (usuario.tipo === 'ROLE_CLIENTE') {
+                router.push('/home');
             }
-          } else {
-            Alert.alert('Erro de login', 'Email ou senha incorretos');
-          }          
         }
-        catch (error) {
-          Alert.alert('Erro', 'Não foi possível se conectar ao servidor');
-        }
+    } catch (error) {
+        Alert.alert('Erro de login', error.message || 'Erro inesperado');
     }
+};
     return (
       <View style={styles.container}>
         <View style={styles.loginBox}>
@@ -55,7 +48,7 @@ const Login = () => {
           <TouchableOpacity style={styles.forgotPassword}>
             <Text style={styles.forgotText}>Esqueci Senha</Text>
           </TouchableOpacity>
-          {erro && <Text style={{ color: 'red' }}>{erro}</Text>}
+          {error && <Text style={{ color: 'red' }}>{error}</Text>}
           <TouchableOpacity style={styles.loginButton} onPress={() => handleLogin()}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
