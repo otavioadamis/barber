@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { router } from 'expo-router';
 import { UserService } from '../../services/api/UserService';
+import BarberConnectImage from '../../assets/BarberConnect.png';
 
 export default function Cadastro({ navigation }) {
   const userService = new UserService();
+  const BarberConnectPng = Image.resolveAssetSource(BarberConnectImage).uri;
 
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -42,7 +44,7 @@ export default function Cadastro({ navigation }) {
     <View style={styles.container}>
       <View style={styles.signupBox}>
         <Image
-          source={{ uri: '../../assets/BarberConnect.png' }}
+          source={{ uri: BarberConnectPng }}
           style={styles.logo}
         />
 
@@ -91,10 +93,11 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
     borderRadius: 50,
     marginBottom: 20,
+    resizeMode: 'contain'
   },
   input: {
     width: '100%',
