@@ -14,7 +14,7 @@ const Home = () => {
         <Link href="/criar-reserva2" className='font-bold'>Cria reserva2</Link>
         <Link href="/home" className='font-bold'>Homepage</Link>
         <Link href="/calendario" className='font-bold'>calendario</Link>
-        <Link href="/AgendarServico" className='font-bold'>Agendar Serviço</Link>
+        <Link href="/agendar-servico" className='font-bold'>Agendar Serviço</Link>
       </View>
     </SafeAreaView>
   )

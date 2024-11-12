@@ -14,18 +14,18 @@ const Calendario = () => {
   };
 
   const handleDayPress = (day) => {
-    setSelectedDay(day.dateString); 
-    setHorarios(availableHorarios[day.dateString] || []); 
+    setSelectedDay(day.dateString);
+    setHorarios(availableHorarios[day.dateString] || []);
   };
 
   const handleHorarioPress = (selectedHorario) => {
     router.push({
-    pathname: '/criar-reserva',
-    params: {
-      dia: selectedDay,
-      horario: selectedHorario
-    },
-  });
+      pathname: '/criar-reserva',
+      params: {
+        dia: selectedDay,
+        horario: selectedHorario
+      },
+    });
   }
 
   return (
@@ -51,10 +51,10 @@ const Calendario = () => {
         {horarios.length > 0 ? (
           <ScrollView>
             {horarios.map((horario, index) => (
-              <TouchableOpacity 
-                key={index} 
+              <TouchableOpacity
+                key={index}
                 style={styles.horarioButton}
-                activeOpacity={0.5} 
+                activeOpacity={0.5}
                 onPress={() => handleHorarioPress(horario)}>
                 <Text style={styles.horarioText}>{horario}</Text>
               </TouchableOpacity>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     overflow: 'hidden',
-    elevation: 5, 
+    elevation: 5,
   },
   horariosContainer: {
     backgroundColor: '#f9f9f9',

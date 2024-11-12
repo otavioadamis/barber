@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { useLocalSearchParams } from 'expo-router';
 
-const AgendarServico = ({ route, navigation }) => {
-  const { profissionalId, dataSelecionada } = route.params;
+const AgendarServico = ({ navigation }) => {
+  const searchParams = useLocalSearchParams(); 
+  const { profissionalId, dataSelecionada } = searchParams;
   const [horarios, setHorarios] = useState([]);
   const [servicos, setServicos] = useState([]);
   const [selectedServico, setSelectedServico] = useState(null);
@@ -12,13 +14,13 @@ const AgendarServico = ({ route, navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const funcionarioResponse = await axios.get(`http:///ip:3001/funcionarios/${profissionalId}`);
+        const funcionarioResponse = await axios.get(`http:///10.0.0.170:3000/funcionarios/${profissionalId}`);
         setProfissional(funcionarioResponse.data);
         
-        const funcionariosServicosResponse = await axios.get(`http:///ip:3001/funcionarios_servicos?funcionario_id=${profissionalId}`);
+        const funcionariosServicosResponse = await axios.get(`http:///10.0.0.170:3000/funcionarios_servicos?funcionario_id=${profissionalId}`);
         const servicosIds = funcionariosServicosResponse.data.map(item => item.servico_id);
         
-        const servicosResponse = await axios.get(`http:///ip:3001/servicos`);
+        const servicosResponse = await axios.get(`http:///10.0.0.170:3000/servicos`);
         const servicosDisponiveis = servicosResponse.data.filter(servico => servicosIds.includes(servico.id));
         setServicos(servicosDisponiveis);
 

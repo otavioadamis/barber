@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { Text, FlatList, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { router } from 'expo-router';
 
 const CriarReserva = () => {
   const [profissionais, setProfissionais] = useState([]);
   const [dataSelecionada, setDataSelecionada] = useState(null);
-  const navigation = useNavigation();
 
   useEffect(() => {
-    axios.get('http://ip:3001/funcionarios')
-    .then((response) => {
+    axios.get('http://10.0.0.170:3000/funcionarios')
+      .then((response) => {
         setProfissionais(response.data);
       })
       .catch((error) => {
@@ -22,8 +21,8 @@ const CriarReserva = () => {
   const selecionarData = (dia) => {
     setDataSelecionada(dia);
 
-    axios.get('http:///ip:3001/funcionarios')
-    .then((response) => {
+    axios.get('http://10.0.0.170:3000/funcionarios')
+      .then((response) => {
         const profissionaisDisponiveis = response.data.filter(profissional =>
           profissional.horarios.some(horario => horario.dia === dia)
         );
@@ -34,11 +33,14 @@ const CriarReserva = () => {
       });
   };
 
-  const selecionarProfissional = (profissional) => {
-    navigation.navigate('agendar-servico', {
-      profissional,
-      dataSelecionada,
-    });
+  const selecionarProfissional = (profissionalId) => {
+    router.push({
+      pathname: 'agendar-servico',
+      params: {
+        profissionalId: profissionalId,
+        dataSelecionada: dataSelecionada
+      }
+    })
   };
 
   return (
@@ -59,7 +61,7 @@ const CriarReserva = () => {
             data={profissionais}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.professionalItem} onPress={() => selecionarProfissional(item)}>
+              <TouchableOpacity style={styles.professionalItem} onPress={() => selecionarProfissional(item.id)}>
                 <Image source={{ uri: item.imagem }} style={styles.professionalImage} />
                 <Text style={styles.professionalName}>{item.nome}</Text>
               </TouchableOpacity>
