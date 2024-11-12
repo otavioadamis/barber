@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { useLocalSearchParams } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AgendarServico = ({ navigation }) => {
-  const searchParams = useLocalSearchParams(); 
+  const searchParams = useLocalSearchParams();
   const { profissionalId, dataSelecionada } = searchParams;
   const [horarios, setHorarios] = useState([]);
   const [servicos, setServicos] = useState([]);
@@ -16,10 +17,10 @@ const AgendarServico = ({ navigation }) => {
       try {
         const funcionarioResponse = await axios.get(`http:///10.0.0.170:3000/funcionarios/${profissionalId}`);
         setProfissional(funcionarioResponse.data);
-        
+
         const funcionariosServicosResponse = await axios.get(`http:///10.0.0.170:3000/funcionarios_servicos?funcionario_id=${profissionalId}`);
         const servicosIds = funcionariosServicosResponse.data.map(item => item.servico_id);
-        
+
         const servicosResponse = await axios.get(`http:///10.0.0.170:3000/servicos`);
         const servicosDisponiveis = servicosResponse.data.filter(servico => servicosIds.includes(servico.id));
         setServicos(servicosDisponiveis);
@@ -48,7 +49,7 @@ const AgendarServico = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Agendar com {profissional.nome}</Text>
       <Text style={styles.subtitle}>Data: {dataSelecionada}</Text>
 
@@ -76,7 +77,7 @@ const AgendarServico = ({ navigation }) => {
           </View>
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

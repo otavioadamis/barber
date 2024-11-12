@@ -3,6 +3,7 @@ import { Text, FlatList, TouchableOpacity, StyleSheet, ScrollView, Image } from 
 import { Calendar } from 'react-native-calendars';
 import axios from 'axios';
 import { router } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CriarReserva = () => {
   const [profissionais, setProfissionais] = useState([]);
@@ -44,7 +45,7 @@ const CriarReserva = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Selecionar uma Data</Text>
       <Calendar
         onDayPress={(day) => selecionarData(day.dateString)}
@@ -57,6 +58,7 @@ const CriarReserva = () => {
         <>
           <Text style={styles.title}>Profissionais Disponíveis</Text>
           <FlatList
+            showsHorizontalScrollIndicator={false}
             horizontal
             data={profissionais}
             keyExtractor={(item) => item.id}
@@ -69,7 +71,7 @@ const CriarReserva = () => {
           />
         </>
       )}
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
