@@ -1,0 +1,123 @@
+{
+  "funcionarios": [
+    {
+      "id": "1",
+      "nome": "Alberto Santinho",
+      "imagem": "https://img.freepik.com/free-photo/headshot-angry-man-frowning-looking-disappointed-bothered-standing-blue-background_1258-65524.jpg?t=st=1730732359~exp=1730735959~hmac=71f40929dfe690b671ecf84e3a3d566b783461d617ac06f25848e34fa3983b74&w=740",
+      "horarios": [
+        {
+          "dia": "2024-11-21",
+          "hora_inicio": "16:00",
+          "hora_fim": "18:00"
+        },
+        {
+          "dia": "2024-11-22",
+          "hora_inicio": "09:00",
+          "hora_fim": "12:00"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "Amanda",
+      "imagem": "https://example.com/images/amanda.jpg",
+      "horarios": [
+        {
+          "dia": "2024-11-21",
+          "hora_inicio": "10:00",
+          "hora_fim": "12:00"
+        },
+        {
+          "dia": "2024-11-23",
+          "hora_inicio": "14:00",
+          "hora_fim": "17:00"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "nome": "Felipe",
+      "imagem": "https://example.com/images/felipe.jpg",
+      "horarios": [
+        {
+          "dia": "2024-11-21",
+          "hora_inicio": "13:00",
+          "hora_fim": "15:00"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "nome": "Glauber",
+      "imagem": "https://example.com/images/glauber.jpg",
+      "horarios": [
+        {
+          "dia": "2024-11-22",
+          "hora_inicio": "08:00",
+          "hora_fim": "11:00"
+        },
+        {
+          "dia": "2024-11-24",
+          "hora_inicio": "15:00",
+          "hora_fim": "18:00"
+        }
+      ]
+    }
+  ],
+  
+  "servicos": [
+    {
+      "id": "101",
+      "nome": "Corte de Cabelo",
+      "descricao": "Corte moderno e personalizado",
+      "tempo_medio": 30,
+      "preco": 50.00
+    },
+    {
+      "id": "102",
+      "nome": "Barba",
+      "descricao": "Barba desenhada com precisão",
+      "tempo_medio": 20,
+      "preco": 30.00
+    },
+    {
+      "id": "103",
+      "nome": "Manicure",
+      "descricao": "Manicure com esmaltação perfeita",
+      "tempo_medio": 40,
+      "preco": 25.00
+    },
+    {
+      "id": "104",
+      "nome": "Pedicure",
+      "descricao": "Cuidado completo para os pés",
+      "tempo_medio": 50,
+      "preco": 35.00
+    },
+    {
+      "id": "105",
+      "nome": "Relaxamento Capilar",
+      "descricao": "Tratamento para alisar e relaxar o cabelo",
+      "tempo_medio": 60,
+      "preco": 80.00
+    },
+    {
+      "id": "106",
+      "nome": "Corte e Barba",
+      "descricao": "Serviço Completo",
+      "tempo_medio": 60,
+      "preco": 65.00
+    }
+  ],
+  
+  "funcionarios_servicos": [
+    { "funcionario_id": "1", "servico_id": "101" },
+    { "funcionario_id": "1", "servico_id": "102" },
+    { "funcionario_id": "2", "servico_id": "103" },
+    { "funcionario_id": "2", "servico_id": "104" },
+    { "funcionario_id": "3", "servico_id": "101" },
+    { "funcionario_id": "3", "servico_id": "105" },
+    { "funcionario_id": "4", "servico_id": "102" },
+    { "funcionario_id": "4", "servico_id": "106" }
+  ]
+}
