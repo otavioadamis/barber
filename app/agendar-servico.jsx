@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const AgendarServico = ({ navigation }) => {
+const AgendarServico = () => {
   const searchParams = useLocalSearchParams();
   const { profissionalId, dataSelecionada } = searchParams;
   const [horarios, setHorarios] = useState([]);
@@ -38,7 +38,7 @@ const AgendarServico = ({ navigation }) => {
   const confirmarAgendamento = (horario) => {
     if (selectedServico) {
       alert(`Serviço agendado: ${selectedServico.nome} com ${profissional.nome} no dia ${dataSelecionada} às ${horario.hora_inicio}`);
-      navigation.goBack();
+      router.back();
     } else {
       alert('Selecione um serviço antes de confirmar o agendamento.');
     }

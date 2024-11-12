@@ -1,60 +1,105 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useState, useEffect } from 'react';
+import { Text, FlatList, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import axios from 'axios';
 import { router } from 'expo-router';
-import { useLocalSearchParams } from 'expo-router';
-import PickerList from '../components/PickerList'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CriarReserva = () => {
-  const [selectedProfissional, setSelectedProfissional] = useState('')
-  const [selectedServico, setSelectedServico] = useState('')
-  const searchParams = useLocalSearchParams(); 
-  const { dia, horario } = searchParams;
+  const [profissionais, setProfissionais] = useState([]);
+  const [dataSelecionada, setDataSelecionada] = useState(null);
 
-  const createNewReserva = () => {
-    router.navigate('/home')
-  }
+  useEffect(() => {
+    axios.get('http://10.0.0.170:3000/funcionarios')
+      .then((response) => {
+        setProfissionais(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar dados:", error);
+      });
+  }, []);
+
+  const selecionarData = (dia) => {
+    setDataSelecionada(dia);
+
+    axios.get('http://10.0.0.170:3000/funcionarios')
+      .then((response) => {
+        const profissionaisDisponiveis = response.data.filter(profissional =>
+          profissional.horarios.some(horario => horario.dia === dia)
+        );
+        setProfissionais(profissionaisDisponiveis);
+      })
+      .catch((error) => {
+        console.error("Erro ao filtrar profissionais:", error);
+      });
+  };
+
+  const selecionarProfissional = (profissionalId) => {
+    router.push({
+      pathname: 'agendar-servico',
+      params: {
+        profissionalId: profissionalId,
+        dataSelecionada: dataSelecionada
+      }
+    })
+  };
 
   return (
-    <SafeAreaView>
-      <View className='flex-col p-4 items-start justify-between h-[80%]'>
-        <View className='flex-row justify-evenly items-center rounded-xl w-full p-1 bg-slate-200 shadow shadow-black'>
-          <TouchableOpacity activeOpacity={0.5} onPress={router.back}>
-            <View className='bg-blue-200 rounded-xl w-14 h-8 justify-center items-center'>
-              <Text className='font-medium'>Voltar</Text>
-            </View>
-          </TouchableOpacity>
-          <Text className='font-medium text-[18px]'>Agendar</Text>
-          <Text className='font-medium'>{dia}</Text>
-        </View>
-        <View className='items-start flex-col w-full p-3 space-y-20 mt-16'>
-          <View className='flex-row justify-between w-full bg-purple-800 h-10 items-center rounded-xl p-2'>
-            <Text className='font-medium text-white'>Horário selecionado</Text>
-            <Text className='font-medium text-white'>{horario}</Text>
-          </View>
-          <View className='flex-col w-full justify-center  bg-green-800 h-10 rounded-xl p-2'>
-            <PickerList
-              title={"Selecione o profissional"}
-              selectedValue={selectedProfissional}
-              onValueChange={setSelectedProfissional}
-            />
-          </View>
-          <View className='flex-col w-full justify-center  bg-green-800 h-10 rounded-xl p-2'>
-            <PickerList
-              title={"Selecione os serviços"}
-              selectedValue={selectedServico}
-              onValueChange={setSelectedServico}
-            />
-          </View>
-          <TouchableOpacity className='self-center' activeOpacity={0.5} onPress={createNewReserva}>
-            <View className=' bg-blue-200 rounded-xl w-24 h-8 justify-center items-center'>
-              <Text className='font-medium'>Agendar</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </SafeAreaView>
-  )
-}
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Selecionar uma Data</Text>
+      <Calendar
+        onDayPress={(day) => selecionarData(day.dateString)}
+        markedDates={{
+          [dataSelecionada]: { selected: true, selectedColor: '#1E90FF' },
+        }}
+      />
 
-export default CriarReserva
+      {dataSelecionada && (
+        <>
+          <Text style={styles.title}>Profissionais Disponíveis</Text>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={profissionais}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity style={styles.professionalItem} onPress={() => selecionarProfissional(item.id)}>
+                <Image source={{ uri: item.imagem }} style={styles.professionalImage} />
+                <Text style={styles.professionalName}>{item.nome}</Text>
+              </TouchableOpacity>
+            )}
+          />
+        </>
+      )}
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#ffffff',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  professionalItem: {
+    alignItems: 'center',
+    padding: 8,
+    marginRight: 10,
+  },
+  professionalImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginBottom: 4,
+  },
+  professionalName: {
+    fontSize: 12,
+    textAlign: 'center',
+  },
+});
+export default CriarReserva;
