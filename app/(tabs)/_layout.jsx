@@ -47,9 +47,9 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="calendario"
+          name="criar-reserva"
           options={{
-            title: 'Calendario',
+            title: 'Agendar',
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
@@ -57,6 +57,22 @@ const TabsLayout = () => {
                 color={color}
                 focused={focused}
                 name='Agendar'
+              />
+            )
+          }}
+        />
+
+        <Tabs.Screen
+          name="promocao-page"
+          options={{
+            title: 'promocao-page',
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.Announce}
+                color={color}
+                focused={focused}
+                name='Promoções'
               />
             )
           }}

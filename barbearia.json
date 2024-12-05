@@ -1,0 +1,43 @@
+{
+    "usuarios": [
+      {
+        "id": "1",
+        "nome": "Carlos Silva",
+        "email": "carlos.silva@example.com",
+        "senha": "senha123",
+        "contato": "(11) 98765-4321",
+        "tipo": "ROLE_FUNCIONARIO",
+        "criado_em": "2024-11-24T10:00:00"
+      },
+      {
+        "id": "2",
+        "nome": "Joana Pereira",
+        "email": "joana.pereira@example.com",
+        "senha": "senha123",
+        "contato": "(11) 91234-5678",
+        "tipo": "ROLE_CLIENTE",
+        "criado_em": "2024-11-24T11:00:00"
+      }
+    ],
+    "barbearias": [
+      {
+        "id": "1",
+        "nome": "Barbearia do Cláudio",
+        "bairro": "Meireles",
+        "rua": "Rua X",
+        "numero": 707,
+        "imagem": "https://i.pinimg.com/736x/58/e4/ed/58e4edebd8fd1f52b82809e522735d20.jpg",
+        "funcionarios": ["1"]
+      },
+      {
+        "id": "2",
+        "nome": "Barbearia do Alfonso",
+        "bairro": "Papicu",
+        "rua": "Rua X",
+        "numero": 7,
+        "imagem": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFqUcXWlzndv_X2HO-9_y-965aUze5xCnww&s",
+        "funcionarios": []
+      }
+    ]
+  }
+  

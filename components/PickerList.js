@@ -1,7 +1,5 @@
-import { StyleSheet  } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { Picker } from '@react-native-picker/picker'
-import { useTailwind } from 'nativewind'
 
 const PickerList = ({title, selectedValue, onValueChange }) => {
   return (

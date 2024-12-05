@@ -5,7 +5,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const EditarUsuario = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(!isEnabled);
-
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>

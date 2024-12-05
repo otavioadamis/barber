@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Text, FlatList, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import axios from 'axios';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FuncionarioService } from '../../services/api/FuncionarioService';
 
 const CriarReserva = () => {
   const [profissionais, setProfissionais] = useState([]);
   const [dataSelecionada, setDataSelecionada] = useState(null);
+  const funcionarioService = new FuncionarioService();
+  
+  const mockImage = "https://img.freepik.com/free-photo/headshot-angry-man-frowning-looking-disappointed-bothered-standing-blue-background_1258-65524.jpg?t=st=1730732359~exp=1730735959~hmac=71f40929dfe690b671ecf84e3a3d566b783461d617ac06f25848e34fa3983b74&w=740"
 
   useEffect(() => {
-    axios.get('http://10.0.0.170:3000/funcionarios')
+    funcionarioService.getAllFuncionarios()
       .then((response) => {
+        console.log(response.data)
         setProfissionais(response.data);
       })
       .catch((error) => {
@@ -21,24 +25,14 @@ const CriarReserva = () => {
 
   const selecionarData = (dia) => {
     setDataSelecionada(dia);
-
-    axios.get('http://10.0.0.170:3000/funcionarios')
-      .then((response) => {
-        const profissionaisDisponiveis = response.data.filter(profissional =>
-          profissional.horarios.some(horario => horario.dia === dia)
-        );
-        setProfissionais(profissionaisDisponiveis);
-      })
-      .catch((error) => {
-        console.error("Erro ao filtrar profissionais:", error);
-      });
   };
 
-  const selecionarProfissional = (profissionalId) => {
+  const selecionarProfissional = (profissional) => {
     router.push({
-      pathname: 'agendar-servico',
+      pathname: 'cliente/agendar-servico',
       params: {
-        profissionalId: profissionalId,
+        funcionarioId: profissional.funcionarioId,
+        funcionarioNome: profissional.funcionarioNome,
         dataSelecionada: dataSelecionada
       }
     })
@@ -63,9 +57,9 @@ const CriarReserva = () => {
             data={profissionais}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.professionalItem} onPress={() => selecionarProfissional(item.id)}>
-                <Image source={{ uri: item.imagem }} style={styles.professionalImage} />
-                <Text style={styles.professionalName}>{item.nome}</Text>
+              <TouchableOpacity style={styles.professionalItem} onPress={() => selecionarProfissional(item)}>
+                <Image source={{ uri: mockImage }} style={styles.professionalImage} />
+                <Text style={styles.professionalName}>{item.funcionarioNome}</Text>
               </TouchableOpacity>
             )}
           />
@@ -102,4 +96,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 export default CriarReserva;
